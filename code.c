@@ -1,17 +1,19 @@
+// #include "include/at89s8253.h"
+#include "at89s8253.h"
 
-union PORT {
-  struct {
-    char b0 :1;
-    char b1 :1;
-    char b2 :1;
-    char b3 :1;
-    char b4 :1;
-    char b5 :1;
-    char b6 :1;
-    char b7 :1;
-  };
-  char byte;
-};
+// union PORT {
+//   struct {
+//     char b0 :1;
+//     char b1 :1;
+//     char b2 :1;
+//     char b3 :1;
+//     char b4 :1;
+//     char b5 :1;
+//     char b6 :1;
+//     char b7 :1;
+//   };
+//   char byte;
+// };
 
 // #define P0 (*(volatile union PORT*) 0x080)
 // #define P1 (*(volatile union PORT*) 0x090)
@@ -20,26 +22,28 @@ union PORT {
 
 
 
-union PORT P0_dummy;
-union PORT P1_dummy;
-union PORT P2_dummy;
-union PORT P3_dummy;
+// union PORT P0_dummy;
+// union PORT P1_dummy;
+// union PORT P2_dummy;
+// union PORT P3_dummy;
 
-#define P0 (*(volatile union PORT*) &P0_dummy)
-#define P1 (*(volatile union PORT*) &P1_dummy)
-#define P2 (*(volatile union PORT*) &P2_dummy)
-#define P3 (*(volatile union PORT*) &P3_dummy)
+// #define P0 (*(volatile union PORT*) &P0_dummy)
+// #define P1 (*(volatile union PORT*) &P1_dummy)
+// #define P2 (*(volatile union PORT*) &P2_dummy)
+// #define P3 (*(volatile union PORT*) &P3_dummy)
 
-void reset();
-void initialise_LCD();
-char listen_UART();
-char listen_buttons();
+// void reset();
+// void initialise_LCD();
+// char listen_UART();
+// char listen_buttons();
 
-int main() {
-  while (1) {
-    reset();
+// sbit P0 = 0x80;
 
-  }
+void main() {
+  // while (1) {
+  //   reset();
+
+  // }
 }
 
 

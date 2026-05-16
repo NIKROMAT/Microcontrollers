@@ -1,25 +1,30 @@
-COMP = gcc
+COMP = sdcc
 SRC = code.c
-# OBJ = code
-CFLAGS = 
+OBJ = code
+CFLAGS = -mmcs51 --model-small
 TARGET = code
-# DIR = ./code
+DIR = ./build
+SHELL = /bin/bash
 
 
-.PHONY: all run clean cleanall
+.PHONY: all run clean cleanall comp
 
 all: comp clean 
 
 # run: comp
 # 	cd $(DIR) &&	./$(TARGET)
 
-comp: $(SRC)
-	$(COMP) $^ -o $(TARGET)
-# 	cd $(DIR) &&	$(COMP) $^ -o $(TARGET)
+comp: 
+	mkdir -p $(DIR)
+	cd $(DIR) && $(COMP) $(CFLAGS) ../$(SRC)
 
 # $(OBJ): 
 # %.rel %.lst %.sym %.asm &: %.c
 # 	cd $(DIR) &&	$(GXX) -c $(CFLAGS) $< 
+# {lk,lst,map,mem,rel,rst,sym}
 
-# cleanall: clean
-# 	rm -f $(filter-out $(DIR)/code.c, $(wildcard $(DIR)/code.*))
+clean:
+	rm -f $(DIR)/code.{lk,lst,map,mem,rel,rst,sym}
+
+cleanall:
+	rm -rf $(DIR)
