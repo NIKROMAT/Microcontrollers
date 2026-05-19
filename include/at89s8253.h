@@ -70,8 +70,8 @@ sfr __at(0x089) TMOD; // reset: 0b'0000'0000
 // sbit __at(0x089 ^ 5) TMOD_5 ; // T1: M1
 // sbit __at(0x089 ^ 6) TMOD_6 ; // T1: C/T
 // sbit __at(0x089 ^ 7) TMOD_7 ; // T1: GATE
-#define TMOD0_MASK 0b0000'1111
-#define TMOD1_MASK 0b1111'0000
+#define TMOD_MASK0 0x0F
+#define TMOD_MASK1 0xF0
 
 sfr __at(0x08A) TL0;  // reset: 0b'0000'0000  
 sfr __at(0x08B) TL1;  // reset: 0b'0000'0000  
@@ -123,5 +123,23 @@ sbit __at(0x098 ^ 6) SCON_6 ;
 sbit __at(0x098 ^ 7) SCON_7 ;
 
 sfr __at(0x099) SBUF; // reset: 0b'xxxx'xxxx
+
+
+
+// Прерывания
+#define ADD_RST   0x0000  /* Системный сброс */
+#define ADD_IE0   0x0003  /* Внешнее прерывание 0 */
+#define ADD_TF0   0x000B  /* Переполнение счетчика Т/С0 */
+#define ADD_IE1   0x0013  /* Внешнее прерывание 1 */
+#define ADD_TF1   0x001B  /* Переполнение счетчика Т/С1 */
+#define ADD_RI_TI 0x0023  /* Последовательный порт UART или SPI */
+#define ADD_TF2   0x002B  /* Переполнение счетчика Т/С2 */
+
+#define N_IE0   0  /* Внешнее прерывание 0 */
+#define N_TF0   1  /* Переполнение счетчика Т/С0 */
+#define N_IE1   2  /* Внешнее прерывание 1 */
+#define N_TF1   3  /* Переполнение счетчика Т/С1 */
+#define N_RI_TI 4  /* Последовательный порт UART или SPI */
+#define N_TF2   5  /* Переполнение счетчика Т/С2 */
 
 #endif // AT89S8253_H
