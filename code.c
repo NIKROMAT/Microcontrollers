@@ -10,7 +10,7 @@
 
 
 void init();
-void input_uart()   __interrupt(2);    // ПК in
+void input_uart()   __interrupt(2); // ПК in
 void input_matrix() __interrupt(0); // МК in
 void delay(); // T0
 
@@ -22,6 +22,7 @@ void update_B(int);
 
 volatile int F0, F1;
 volatile int A, B;
+volatile int len_A, len_B;
 volatile int rst;
 
 void main() {
@@ -56,6 +57,8 @@ void init() {
   F1 = 0;
   A = 0;
   B = 0;
+  len_A = 0;
+  len_B = 0;
   rst = 0;
 
   lcd_cmd(0x0F);
@@ -76,6 +79,10 @@ void input_uart() __interrupt(2) { // По внешнему прерыванию
 }
 
 void input_matrix() __interrupt(0) { // По внешнему прерыванию 0
+  if (MATRIX & 0x70 == 0) {
+    return;
+  }
+
   int num = -1;
   switch (MATRIX & 0x0F) {
   case 0x01: {
@@ -161,9 +168,29 @@ void lcd_send(int cmd) {
   LCD_E = 0;
   return;
 }
-  
+
 void update_A(int c) {
-  
+  if (c == 10) {
+    F0 = 1;
+    return;
+  }
+
+  if (len_A >= 5) {
+    rst = 1;
+    return;
+  }
+  else {
+    A = 10*A + c;
+  }
+
+  lcd_cmd(0x80);
+  int tmp = A;
+  while (tmp != 0) {
+    int c = tmp % 10;
+    tmp /= 10;
+    lcd_send(c);
+  }
+
 }
 
 void update_B(int c) {
